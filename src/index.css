@@ -1,0 +1,298 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #f8f8f8;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.featured-paintings {
+  padding: 2rem;
+}
+
+.paintings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.painting-card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  text-align: center;
+}
+
+.painting-card img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #f8f8f8;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .navbar ul {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .paintings-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Slider Styling */
+.slick-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slick-slide img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* Open Auctions Section */
+.open-auctions {
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.open-auctions h2 {
+  margin-bottom: 2rem;
+}
+
+.auction-slide {
+  position: relative;
+}
+
+.auction-slide h3 {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+/* Featured Artists Section */
+.featured-artists {
+  padding: 2rem 0;
+}
+
+.artist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.artist-card {
+  text-align: center;
+}
+
+.artist-card img {
+  max-width: 100%;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+/* Customer Reviews Section */
+.customer-reviews {
+  background-color: #f9f9f9;
+  padding: 2rem;
+  text-align: center;
+}
+
+.reviews {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.review-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.review-card p {
+  margin: 0.5rem 0;
+}
+
+.review-card strong {
+  color: #333;
+}
+
+.view-more-btn {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 16px;
+  color: white;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-more-btn:hover {
+  background-color: #555;
+}
+
+/* Responsive Styles for Buttons */
+@media (max-width: 768px) {
+  .view-more-btn {
+    font-size: 14px;
+    padding: 0.5rem 1rem;
+  }
+}
+
+.featured-paintings {
+  padding: 2rem;
+  text-align: center;
+}
+
+.paintings-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.painting-card {
+  flex: 1 1 200px;
+  max-width: 250px;
+  text-align: center;
+}
+
+.painting-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.painting-card img:hover {
+  transform: scale(1.05);
+}
+
+.painting-card h3 {
+  margin-top: 0.75rem;
+  font-size: 18px;
+}
+
+.painting-card p {
+  color: #777;
+}
+
+/* Button for Featured Paintings */
+.view-more-btn {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 16px;
+  color: white;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-more-btn:hover {
+  background-color: #555;
+}
+/* General styles for section buttons */
+.view-more-btn {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 16px;
+  color: white;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-more-btn:hover {
+  background-color: #555;
+}
+
+/* Example Grid Styling for Paintings and Artists */
+.paintings-grid, .artist-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.painting-card, .artist-card {
+  max-width: 200px;
+  text-align: center;
+}
+
+.painting-card img, .artist-card img {
+  max-width: 100%;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.painting-card img:hover, .artist-card img:hover {
+  transform: scale(1.05);
+}
+
+.explore-options {
+  text-align: center;
+  padding: 2rem;
+}
+
+.explore-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.explore-btn {
+  padding: 1rem 2rem;
+  font-size: 18px;
+  color: white;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.explore-btn:hover {
+  background-color: #555;
+}
+
+@media (max-width: 768px) {
+  .explore-btn {
+    width: 100%;
+  }
+}

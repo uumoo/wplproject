@@ -1,0 +1,103 @@
+/* General Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #f8f8f8;
+}
+
+.navbar-logo h1 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+.navbar-menu li {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Authentication Button Styles */
+.navbar-auth {
+  display: flex;
+  gap: 1rem;
+}
+
+.login-btn, .signup-btn {
+  padding: 0.5rem 1rem;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.login-btn {
+  background-color: transparent;
+  border: 2px solid #333;
+  color: #333;
+}
+
+.signup-btn {
+  background-color: #333;
+  color: white;
+  border: 2px solid #333;
+}
+
+/* Hover Effects */
+.login-btn:hover {
+  background-color: #333;
+  color: white;
+  transition: 0.3s ease;
+}
+
+.signup-btn:hover {
+  background-color: transparent;
+  color: #333;
+  transition: 0.3s ease;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .navbar-menu {
+    display: none;
+  }
+
+  .navbar-auth {
+    gap: 0.5rem;
+  }
+
+  .login-btn, .signup-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 14px;
+  }
+}
+
+.view-more-btn {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 16px;
+  color: white;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-more-btn:hover {
+  background-color: #555;
+}
+
+/* Responsive Styles for Buttons */
+@media (max-width: 768px) {
+  .view-more-btn {
+    font-size: 14px;
+    padding: 0.5rem 1rem;
+  }
+}
