@@ -5,7 +5,8 @@ import FeaturedPaintings from "./components/FeaturedPaintings";
 import OpenAuctions from "./components/OpenAuctions";
 import FeaturedArtists from "./components/FeaturedArtists";
 import CustomerReviews from "./components/CustomerReviews";
-import ExploreOptions from "./components/ExploreOptions"; // Import ExploreOptions
+import ExploreOptions from "./components/ExploreOptions";
+import HeroSection from "./components/HeroSection";  // Import the HeroSection
 import Footer from "./components/Footer";
 import './index.css';
 
@@ -22,23 +23,24 @@ function App() {
   return (
     <Router>
       <Navbar />
+      <HeroSection /> {/* Add HeroSection at the top */}
       <Routes>
         <Route path="/" element={
           <main>
-            <ExploreOptions /> {/* Add ExploreOptions at the top */}
+            <ExploreOptions />
             <FeaturedPaintings />
             <OpenAuctions />
             <FeaturedArtists />
             <CustomerReviews />
           </main>
         } />
-        <Route path="/rare-things" element={<RareThingsPage />} /> {/* Route for Rare Things */}
-        <Route path="/paintings" element={<PaintingsPage />} /> {/* Route for Paintings */}
-        <Route path="/drawings" element={<DrawingsPage />} /> {/* Route for Drawings */}
-        <Route path="/sculpture" element={<SculpturePage />} /> {/* Route for Sculpture */}
-        <Route path="/artists" element={<ArtistsPage />} /> {/* Route for Artists */}
-        <Route path="/auctions" element={<AuctionsPage />} /> {/* Route for Auctions */}
-        <Route path="/reviews" element={<ReviewsPage />} /> {/* Route for Reviews */}
+        <Route path="/rare-things" element={<RareThingsPage />} />
+        <Route path="/paintings" element={<PaintingsPage />} />
+        <Route path="/drawings" element={<DrawingsPage />} />
+        <Route path="/sculpture" element={<SculpturePage />} />
+        <Route path="/artists" element={<ArtistsPage />} />
+        <Route path="/auctions" element={<AuctionsPage />} />
+        <Route path="/reviews" element={<ReviewsPage />} />
       </Routes>
       <Footer />
     </Router>

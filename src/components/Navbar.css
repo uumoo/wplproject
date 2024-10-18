@@ -5,6 +5,12 @@
   align-items: center;
   padding: 1rem 2rem;
   background-color: #f8f8f8;
+
+  /* Added for sticky behavior */
+  position: sticky; /* Make the navbar sticky */
+  top: 0;           /* Stick it to the top */
+  z-index: 1000;    /* Ensures the navbar stays on top of other content */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Adds shadow for better visibility */
 }
 
 .navbar-logo h1 {
