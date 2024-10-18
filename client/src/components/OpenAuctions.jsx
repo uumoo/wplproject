@@ -4,9 +4,13 @@ import { useNavigate } from 'react-router-dom'; // Navigation with React Router
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
+// Import images from the assets directory
+import auction1 from '../assets/images/auction1.jpg'; // Adjust the path based on your folder structure
+import auction2 from '../assets/images/auction2.jpg';
+
 const auctionImages = [
-  { image: "/images/auction1.jpg", title: "Bikes Against Wall" },
-  { image: "/images/auction2.jpg", title: "Modern Art Piece" },
+  { image: auction1, title: "Bikes Against Wall" },
+  { image: auction2, title: "Modern Art Piece" },
 ];
 
 const OpenAuctions = () => {
@@ -25,7 +29,7 @@ const OpenAuctions = () => {
 
   return (
     <section className="open-auctions">
-      <h2>Open Auctions</h2>
+      <h2>Auctions</h2>
       <Slider {...settings}>
         {auctionImages.map((auction, index) => (
           <div key={index} className="auction-slide">

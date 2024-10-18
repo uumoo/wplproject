@@ -1,10 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Using React Router for navigation
+import painting1 from '../assets/images/painting1.jpg'; // Adjust the path based on your folder structure
+import painting2 from '../assets/images/painting2.jpg';
+import painting3 from '../assets/images/painting3.jpg';
 
 const paintings = [
-  { title: "Innocence", artist: "Ria Arante", image: "/images/painting1.jpg" },
-  { title: "Wallowing Breeze", artist: "Hettie Richards", image: "/images/painting2.jpg" },
-  { title: "J Resistance", artist: "Ria Arante", image: "/images/painting3.jpg" },
+  { title: "Innocence", artist: "Ria Arante", image: painting1 },
+  { title: "Wallowing Breeze", artist: "Hettie Richards", image: painting2 },
+  { title: "J Resistance", artist: "Ria Arante", image: painting3 },
 ];
 
 const FeaturedPaintings = () => {
