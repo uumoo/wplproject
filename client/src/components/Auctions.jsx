@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Auctions.css'; // Ensure you have corresponding styles for responsiveness
+import './Auctions.css'; 
+import axios from 'axios';
+
+import wallowingBreeze from '../assets/images/wallowing-breeze.png';
+const Auctions = () => {
+  const navigate = useNavigate();
+  const [auctions, setAuctions] = useState([]);
 
 // Import images from the assets directory
+/*
 import wallowingBreeze from '../assets/images/wallowing-breeze.png'; // Adjust the path based on your folder structure
 import jResistance from '../assets/images/j-resistance.png';
 import warmBasket from '../assets/images/warm-basket.png';
@@ -15,34 +22,57 @@ const auctionItems = [
   { id: 4, image: theVonnegut, title: 'The Vonnegut', artist: 'Ria Arante', year: '2017', medium: 'Oil on canvas', price: '$620' },
 ];
 
-const Auctions = () => {
-  const navigate = useNavigate();
+*/
+
+  useEffect(() => {
+    const fetchAllAuctions = async () => {
+      try {
+        const res = await axios.get("http://localhost:8000/api/auctions/active");
+        setAuctions(res.data); 
+        console.log(res.data); 
+      } catch (err) {
+        console.log(err); 
+      }
+    };
+    fetchAllAuctions();
+  }, []);
 
   const handleAuctionClick = (id) => {
-    navigate(`/auction/${id}`); // Navigate to the auction details page
+    navigate(`/auction/${id}`); 
   };
+ 
 
   return (
     <div className="auctions-container">
       <h2>Current Auctions</h2>
       <div className="auctions-grid">
-        {auctionItems.map(item => (
-          <div key={item.id} className="auction-item">
-            <div onClick={() => handleAuctionClick(item.id)} className="auction-image-container">
-              <img src={item.image} alt={item.title} className="auction-image" />
+        {auctions.length > 0 ? (
+          auctions.map(item => (
+            <div key={item.AuctionID} className="auction-item">
+              <div onClick={() => handleAuctionClick(item.AuctionID)} className="auction-image-container">
+                <img 
+                
+                  src={item.ImageURL}  
+                  //src="../images/wallowing-breeze.png"
+                  //src = {wallowingBreeze}
+                  alt={item.Title} 
+                  className="auction-image" 
+                />
+              </div>
+              <div className="auction-details">
+                <h3 onClick={() => handleAuctionClick(item.AuctionID)}>{item.Title}</h3>
+                <p>Status: {item.AuctionStatus}</p>
+                <p>Starting Bid: ${item.StartingBid}</p>
+                <p>Highest Bid: ${item.HighestBid ? item.HighestBid : 'No bids yet'}</p>
+              </div>
+              <button className="bid-button" onClick={() => handleAuctionClick(item.AuctionID)}>
+                BID
+              </button>
             </div>
-            <div className="auction-details">
-              <h3 onClick={() => handleAuctionClick(item.id)}>{item.title}</h3>
-              <p>{item.artist}</p>
-              <p>{item.medium}, {item.year}</p>
-              <p>{item.size}</p>
-              <p>{item.price}</p>
-            </div>
-            <button className="bid-button" onClick={() => handleAuctionClick(item.id)}>
-              BID
-            </button>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p>No active auctions available.</p>
+        )}
       </div>
     </div>
   );

@@ -5,40 +5,43 @@ const router = express.Router();
 //things to implement : api/auction/ call korle start time er agey "pending" thakbe ar pore active thakbe
 
 router.get('/active', (req, res) => {
-
   const pendingCheckQuery = "SELECT AuctionID, StartTime, AuctionStatus FROM auction WHERE AuctionStatus = 'pending'";
+
   db.query(pendingCheckQuery, [], (err, result) => {
-      if (err) return res.status(500).json({ error: err.message });
-      if (result.length === 0) return res.status(404).json({ message: 'No pending auctions found.' });
-  
-      const currentTime = new Date();
-      result.forEach(auction => {
-          const { AuctionID, StartTime } = auction;
-          if (currentTime >= new Date(StartTime)) {
-              const updateStatusQuery = "UPDATE auction SET AuctionStatus = 'active' WHERE AuctionID = ?";
-              
-              db.query(updateStatusQuery, [AuctionID], (err, updateResult) => {
-                  if (err) return res.status(500).json({ error: err.message });
-                  console.log(`AuctionID ${AuctionID} has been set to 'active'.`);
-              });
-          }
-      });
-  
+    if (err) return res.status(500).json({ error: err.message });
+    if (result.length === 0) return res.status(404).json({ message: 'No pending auctions found.' });
+
+    const currentTime = new Date();
+
+    result.forEach(auction => {
+      const { AuctionID, StartTime } = auction;
+
+      if (currentTime >= new Date(StartTime)) {
+        const updateStatusQuery = "UPDATE auction SET AuctionStatus = 'active' WHERE AuctionID = ?";
+        
+        db.query(updateStatusQuery, [AuctionID], (err, updateResult) => {
+          if (err) return res.status(500).json({ error: err.message });
+          console.log(`AuctionID ${AuctionID} has been set to 'active'.`);
+        });
+      }
+    });
   });
 
-  
-    const timeExpirationQuery = "UPDATE auction SET AuctionStatus = 'closed' WHERE EndTime < NOW()"
-    db.query(timeExpirationQuery, (err, results) => {
-      if (err) return res.status(500).json(err);
-      const query = "SELECT * FROM auction WHERE AuctionStatus = 'active' OR AuctionStatus = 'pending'";
-      db.query(query, (err, results) => {
-        if (err) return res.status(500).json(err);
-        res.json(results);
-      });
+  const activeAuctionsQuery = `
+    SELECT a.AuctionID, a.StartTime, a.EndTime, a.StartingBid, a.HighestBid, a.AuctionStatus, 
+           aw.Title, aw.ImageURL 
+    FROM auction a 
+    JOIN artwork aw ON a.ArtworkID = aw.ArtworkID 
+    WHERE a.AuctionStatus = 'active' or a.AuctionStatus = 'pending'` ;
 
-    });
+  db.query(activeAuctionsQuery, [], (err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (results.length === 0) return res.status(404).json({ message: 'No active auctions found.' });
 
+    res.json(results);
+  });
 });
+
 
 
 router.get('/active/:categoryID', (req, res) => {
@@ -81,7 +84,7 @@ router.get('/:auctionId', (req, res) => {
               db.query(updateStatusQuery, [AuctionID], (err, updateResult) => {
                   if (err) return res.status(500).json({ error: err.message });
                   console.log(`AuctionID ${AuctionID} has been set to 'active'.`);
-              });
+              }); 
           }
       });
   
@@ -90,7 +93,27 @@ router.get('/:auctionId', (req, res) => {
   db.query(timeExpirationQuery, (err, results) => {
     if (err) return res.status(500).json(err);
     const { auctionId } = req.params;
-    const query = "SELECT * FROM auction WHERE AuctionID = ?";
+    //main query
+    const query = `
+        SELECT 
+              a.AuctionID, 
+              a.StartTime, 
+              a.EndTime, 
+              a.StartingBid, 
+              a.HighestBid, 
+              a.AuctionStatus, 
+              aw.Title, 
+              aw.ImageURL, 
+              aw.Description,  
+              art.Name AS ArtistName  
+        FROM 
+            auction a 
+        JOIN 
+            artwork aw ON a.ArtworkID = aw.ArtworkID 
+        JOIN 
+            artist art ON aw.ArtistID = art.ArtistID  
+        WHERE 
+            a.AuctionID = ?; ` ;
     db.query(query, [auctionId], (err, result) => {
       if (err) return res.status(500).json(err);
       res.json(result);

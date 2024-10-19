@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors')
 
 //router
 const AuctionsRoutes = require('./routes/Auctions');
@@ -13,6 +14,8 @@ const ReviewsRoutes = require('./routes/Reviews');
 
 const app = express();
 app.use(express.json());
+app.use(cors());
+
 
 app.use('/api/auctions', AuctionsRoutes);
 app.use('/api/admins', AdminsRoutes);
@@ -30,8 +33,8 @@ app.get('/',(req,res)=>{
     res.send("this is main page");
 })
 
-
-app.listen(process.env.PORT||7800,()=>{
-    console.log(`connected to port 7800.`);
+port = 8000
+app.listen(process.env.PORT||port,()=>{
+    console.log(`connected to port ${port}`);
 });
 
