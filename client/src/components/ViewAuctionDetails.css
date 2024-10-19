@@ -11,16 +11,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f9f9f9; /* Background color to match your design */
-    border-radius: 10px; /* Rounded corners */
-    padding: 20px; /* Padding around image section */
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
 }
 
 .main-image {
     width: 100%;
     max-width: 450px;
     height: auto;
-    border-radius: 10px; /* Rounded corners for the main image */
+    border-radius: 10px;
 }
 
 .thumbnail-section {
@@ -32,7 +32,7 @@
     width: 50px;
     height: 50px;
     margin: 0 5px;
-    cursor: pointer; /* Pointer on hover */
+    cursor: pointer;
 }
 
 .view-share {
@@ -44,10 +44,10 @@
 
 .details-section {
     flex: 1;
-    background-color: #fff; /* White background for details */
-    padding: 20px; /* Padding around details section */
-    border-radius: 10px; /* Rounded corners for details section */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .back-button {
@@ -78,7 +78,7 @@
     background-color: #f7f7f7;
     padding: 20px;
     margin-top: 20px;
-    border-radius: 10px; /* Rounded corners for bid section */
+    border-radius: 10px;
 }
 
 .current-bid {
@@ -95,9 +95,9 @@
     background-color: #000;
     color: #fff;
     border: none;
-    padding: 10px 20px; /* Adjusted padding for a more standard button size */
+    padding: 10px 20px;
     cursor: pointer;
-    margin-top: 15px; /* Added top margin for space between bid section and button */
+    margin-top: 15px;
 }
 
 .taxes-info {

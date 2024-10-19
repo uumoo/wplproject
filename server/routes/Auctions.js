@@ -28,11 +28,25 @@ router.get('/active', (req, res) => {
   });
 
   const activeAuctionsQuery = `
-    SELECT a.AuctionID, a.StartTime, a.EndTime, a.StartingBid, a.HighestBid, a.AuctionStatus, 
-           aw.Title, aw.ImageURL 
-    FROM auction a 
-    JOIN artwork aw ON a.ArtworkID = aw.ArtworkID 
-    WHERE a.AuctionStatus = 'active' or a.AuctionStatus = 'pending'` ;
+    SELECT 
+      a.AuctionID, 
+      a.StartTime, 
+      a.EndTime, 
+      a.StartingBid, 
+      a.HighestBid, 
+      a.AuctionStatus, 
+      aw.Title, 
+      aw.ImageURL, 
+      art.Name AS ArtistName, 
+      art.ArtistID AS ArtistID 
+    FROM 
+      auction a 
+    JOIN 
+      artwork aw ON a.ArtworkID = aw.ArtworkID 
+    JOIN 
+      artist art ON aw.ArtistID = art.ArtistID  -- Join the artist table to get the name
+    WHERE 
+      a.AuctionStatus = 'active' OR a.AuctionStatus = 'pending'` ;
 
   db.query(activeAuctionsQuery, [], (err, results) => {
     if (err) return res.status(500).json({ error: err.message });

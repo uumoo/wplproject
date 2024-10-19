@@ -7,8 +7,10 @@ import wallowingBreeze from '../assets/images/wallowing-breeze.png';
 const Auctions = () => {
   const navigate = useNavigate();
   const [auctions, setAuctions] = useState([]);
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
 
-// Import images from the assets directory
+
 /*
 import wallowingBreeze from '../assets/images/wallowing-breeze.png'; // Adjust the path based on your folder structure
 import jResistance from '../assets/images/j-resistance.png';
@@ -30,17 +32,28 @@ const auctionItems = [
         const res = await axios.get("http://localhost:8000/api/auctions/active");
         setAuctions(res.data); 
         console.log(res.data); 
+        setLoading(false); 
       } catch (err) {
         console.log(err); 
+        setLoading(false);
       }
     };
     fetchAllAuctions();
   }, []);
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   const handleAuctionClick = (id) => {
     navigate(`/auction/${id}`); 
   };
- 
+  
+  const handleArtistClick = (id) => {
+    alert('will show artist : button clicked!');
+  };
 
   return (
     <div className="auctions-container">
@@ -61,6 +74,7 @@ const auctionItems = [
               </div>
               <div className="auction-details">
                 <h3 onClick={() => handleAuctionClick(item.AuctionID)}>{item.Title}</h3>
+                <h3 onClick={() => handleArtistClick(item.ArtistID)}>Artist: {item.ArtistName}</h3>
                 <p>Status: {item.AuctionStatus}</p>
                 <p>Starting Bid: ${item.StartingBid}</p>
                 <p>Highest Bid: ${item.HighestBid ? item.HighestBid : 'No bids yet'}</p>
