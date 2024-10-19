@@ -2,7 +2,7 @@ const express = require('express');
 const db = require('../db_connection/Connect_db');
 const router = express.Router(); 
 
-router.get('/:buyerID', (req, res) => {
+router.get('/user/:buyerID', (req, res) => {
     
     const { buyerID } = req.params;
     const query = "SELECT * FROM buyer WHERE BuyerID = ?";
@@ -11,6 +11,21 @@ router.get('/:buyerID', (req, res) => {
       res.json(result);
     });
 });
+
+
+router.post('/signin', (req, res) => {
+    const { email, password } = req.body;
+    const query = "SELECT BuyerID FROM buyer WHERE Email = ? AND Password = ?";
+
+    db.query(query, [email, password], (err, result) => {
+        if (err) return res.status(500).json({ error: err.message });
+        if (result.length === 0) return res.status(401).json({ message: 'Invalid credentials.' });
+
+        const buyerID = result[0].BuyerID;
+        res.json({ message: 'Sign-in successful', buyerID });  // Return buyerID to the client
+    });
+});
+
 
 
 router.post('/:buyerID/new', (req, res) => {

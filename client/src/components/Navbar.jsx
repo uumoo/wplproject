@@ -1,7 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css'; // Link to CSS for custom styles
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const handleSignInClick = () => {
+    navigate(`/signin`); 
+  };
+  const handleSignUpClick = () => {
+    navigate(`/signup`); 
+  };
+
+
+
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">
@@ -17,8 +29,8 @@ const Navbar = () => {
       </ul> 
 
       <div className="navbar-auth">
-        <button className="login-btn">Login</button>
-        <button className="signup-btn">Sign Up</button>
+        <button onClick={() => handleSignInClick()}   className="login-btn">Login</button>
+        <button onClick={() => handleSignUpClick()} className="signup-btn">Sign Up</button>
       </div>
     </nav>
   );

@@ -1,9 +1,11 @@
 import './ViewAuctionDetails.css'; 
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const ViewAuctionDetails = () => {
+  const navigate = useNavigate();
   const { id } = useParams(); // conflict hossilo karon backend e auctionID use korsilam ar tora shudu id
   const [auction, setAuction] = useState(null); // Initialize auction state
   const [loading, setLoading] = useState(true); // Loading state
