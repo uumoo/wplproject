@@ -119,7 +119,8 @@ router.get('/:auctionId', (req, res) => {
               aw.Title, 
               aw.ImageURL, 
               aw.Description,  
-              art.Name AS ArtistName  
+              art.Name AS ArtistName  ,  
+              art.ArtistID AS ArtistID
         FROM 
             auction a 
         JOIN 

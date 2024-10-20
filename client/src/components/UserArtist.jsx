@@ -28,7 +28,7 @@ const UserArtist = () => {
       <img src={artist.ProfilePicture || 'default-profile.png'} alt="Artist" className="profile-picture" />
       <p><strong>Email:</strong> {artist.Email}</p>
       <p><strong>Bio:</strong> {artist.Bio}</p>
-      <p><strong>Portfolio:</strong> <a href={artist.PortfolioURL} target="_blank" rel="noreferrer">{artist.PortfolioURL}</a></p>
+      <p><strong>Portfolio:</strong> <a href={artist.PortfolioURL.startsWith('http') ? artist.PortfolioURL : `http://${artist.PortfolioURL}`} target="_blank" rel="noreferrer">{artist.PortfolioURL}</a></p>
       <p><strong>Approval Status:</strong> {artist.ApprovalStatus}</p>
     </div>
   );

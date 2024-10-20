@@ -52,7 +52,7 @@ const auctionItems = [
   };
   
   const handleArtistClick = (id) => {
-    alert('will show artist : button clicked!');
+    navigate(`/public/artist/${id}`); 
   };
 
   return (

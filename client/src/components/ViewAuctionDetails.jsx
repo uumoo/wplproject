@@ -34,7 +34,7 @@ const ViewAuctionDetails = () => {
     return <p>{error}</p>;
   }
   const handleArtistClick = (id) => {
-    alert('will show artist : button clicked!');
+    navigate(`/public/artist/${id}`); 
   };
 
   return (
