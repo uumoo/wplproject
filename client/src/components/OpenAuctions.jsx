@@ -1,11 +1,11 @@
 import React from 'react';
 import Slider from 'react-slick';
-import { useNavigate } from 'react-router-dom'; // Navigation with React Router
-import "slick-carousel/slick/slick.css"; 
+import { useNavigate } from 'react-router-dom';
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import '../components/OpenAuctions.css'; 
 
-// Import images from the assets directory
-import auction1 from '../assets/images/auction1.jpg'; // Adjust the path based on your folder structure
+import auction1 from '../assets/images/auction1.jpg';
 import auction2 from '../assets/images/auction2.jpg';
 
 const auctionImages = [
@@ -33,7 +33,7 @@ const OpenAuctions = () => {
       <Slider {...settings}>
         {auctionImages.map((auction, index) => (
           <div key={index} className="auction-slide">
-            <img src={auction.image} alt={auction.title} />
+            <img src={auction.image} alt={auction.title} className="auction-image" />
             <h3>{auction.title}</h3>
           </div>
         ))}

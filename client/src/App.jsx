@@ -46,9 +46,9 @@ function App() {
           <main>
             <HeroSection />  {/* HeroSection only here */}
             <ExploreOptions />
-            <FeaturedPaintings />
             <OpenAuctions />  {/* OpenAuctions component */}
             <FeaturedArtists />
+            <FeaturedPaintings />
             <CustomerReviews />
           </main>
         } />

@@ -1,0 +1,77 @@
+.open-auctions {
+  text-align: center;
+  margin: 40px auto;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.auction-slide {
+  position: relative;
+  padding: 0 10px;
+}
+
+.auction-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  max-height: 400px; /* Ensures all images are constrained to a max height */
+  border-radius: 10px;
+}
+
+h3 {
+  margin-top: 10px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.view-more-btn {
+  display: inline-block;
+  margin-top: 50px; /* Increased margin-top to move the button lower */
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  color: rgb(0, 0, 0);
+
+  background-color: #c70f0f;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-more-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .auction-image {
+    max-height: 250px; /* Reduce image size for mobile */
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  .view-more-btn {
+    font-size: 1rem;
+    padding: 8px 16px;
+    margin-top: 40px; /* Adjust margin for mobile */
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .auction-image {
+    max-height: 300px;
+  }
+
+  .view-more-btn {
+    margin-top: 45px; /* Adjust margin for tablet-sized devices */
+  }
+}
