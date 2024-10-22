@@ -17,15 +17,16 @@ const SignIn = () => {
       let response;
 
       if (userType === 'artist') {
-        // Call API for artist sign-in and get artistID
-        response = await axios.post(`http://localhost:8000/api/artists/signin`, data);
-        const artistID = response.data.artistID;
-        navigate(`/user/artist/${artistID}`);  // Redirect to artist profile page
+        //response = await axios.post(`http://localhost:8000/api/artists/signin`, data);
+        //const artistID = response.data.artistID;
+        //navigate(`/user/artist/${artistID}`); 
+        navigate(`/`); 
       } else if (userType === 'buyer') {
-        // Call API for buyer sign-in and get buyerID
-        response = await axios.post(`http://localhost:8000/api/buyers/signin`, data);
-        const buyerID = response.data.buyerID;
-        navigate(`/user/buyer/${buyerID}`);  // Redirect to buyer profile page
+        //response = await axios.post(`http://localhost:8000/api/buyers/signin`, data);
+        //const buyerID = response.data.buyerID;
+        //navigate(`/user/buyer/${buyerID}`); 
+        navigate(`/`);
+
       }
 
       alert('Sign-in successful!');

@@ -1,10 +1,10 @@
-// SignUp.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
-import './SignUp.css'; // Import your CSS file for styling
+import './SignUp.css';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
-  const [userType, setUserType] = useState('artist'); // User type: artist or buyer
+  const [userType, setUserType] = useState('artist');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,30 +13,63 @@ const SignUp = () => {
   const [shippingAddress, setShippingAddress] = useState('');
   const [businessDetails, setBusinessDetails] = useState('');
   const [yearlyWage, setYearlyWage] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = {
+    const dataArtist = {
       name,
       email,
       password,
       bio,
       portfolioURL,
+    };
+
+    const dataBuyer = {
+      name,
+      email,
+      password,
       shippingAddress,
       businessDetails,
       yearlyWage,
     };
 
+    const data = { email, password };
+
+    try {
+      const emailCheckResponse = await axios.post(`http://localhost:8000/api/emails/check-email`, { email });
+      if (emailCheckResponse.data.message !== 'Email is available.') {
+        setEmailError(emailCheckResponse.data.message);
+        return;
+      }
+    } catch (error) {
+      if (error.response) {
+        setEmailError(error.response.data.message);
+      } else {
+        console.error('Error checking email:', error);
+      }
+      return;
+    }
+
     try {
       if (userType === 'artist') {
-        // Call API for artist signup
-        await axios.post(`/api/artists/${name}/new`, data);
+        await axios.post(`http://localhost:8000/api/artists/signup`, dataArtist);
       } else if (userType === 'buyer') {
-        // Call API for buyer signup
-        await axios.post(`/api/buyers/${name}/new`, data);
+        await axios.post(`http://localhost:8000/api/buyers/signup`, dataBuyer);
       }
       alert('Sign-up successful!');
+
+      if (userType === 'artist') {
+        const response = await axios.post(`http://localhost:8000/api/artists/signin`, data);
+        const artistID = response.data.artistID;
+        navigate(`/user/artist/${artistID}`);
+      } else if (userType === 'buyer') {
+        const response = await axios.post(`http://localhost:8000/api/buyers/signin`, data);
+        const buyerID = response.data.buyerID;
+        navigate(`/user/buyer/${buyerID}`);
+      }
     } catch (error) {
       console.error('Error signing up:', error);
       alert('Error signing up.');
@@ -57,17 +90,18 @@ const SignUp = () => {
 
         <label>
           Name:
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+          <input type="text" placeholder="Your Name" value={name} onChange={(e) => setName(e.target.value)} required />
         </label>
 
         <label>
           Email:
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         </label>
+        {emailError && <p className="error">{emailError}</p>}
 
         <label>
           Password:
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <input type="password" placeholder="Give a strong password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </label>
 
         {userType === 'artist' && (
@@ -79,7 +113,17 @@ const SignUp = () => {
 
             <label>
               Portfolio URL:
-              <input type="url" value={portfolioURL} onChange={(e) => setPortfolioURL(e.target.value)} />
+              <input
+                type="url"
+                value={portfolioURL}
+                onChange={(e) => {
+                  let url = e.target.value;
+                  if (url && !url.startsWith("http://") && !url.startsWith("https://")) {
+                    url = "http://" + url;
+                  }
+                  setPortfolioURL(url);
+                }}
+              />
             </label>
           </>
         )}

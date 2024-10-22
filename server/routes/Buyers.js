@@ -11,8 +11,15 @@ router.get('/user/:buyerID', (req, res) => {
       res.json(result);
     });
 });
-
-
+router.get('/email', (req, res) => {
+    
+    const query = "SELECT Email FROM buyer ";
+    db.query(query, [], (err, result) => {
+      if (err) return res.status(500).json(err);
+      res.json(result);
+    });
+  });
+  
 router.post('/signin', (req, res) => {
     const { email, password } = req.body;
     const query = "SELECT BuyerID FROM buyer WHERE Email = ? AND Password = ?";
@@ -28,23 +35,15 @@ router.post('/signin', (req, res) => {
 
 
 
-router.post('/:buyerID/new', (req, res) => {
+router.post('/signup', (req, res) => {
     const { buyerID } = req.params;
-    //const { Name, Email, ProfilePicture, Password, ShippingAddress, BusinessDetails, YearlyWage, ApprovalStatus } = req.body;
-    const Name = "rohim";
-    const Email = "rohimd@sk.com";
-    const ProfilePicture = null;
-    const Password = "1234dddd";
-    const ShippingAddress = "enamog";
-    const BusinessDetails = "successssssful";
-    const YearlyWage = 10000;
-    const ApprovalStatus = "approved";
-
+    const { name, email,  password, shippingAddress, businessDetails, yearlyWage } = req.body;
+    approvalStatus = "approved"
     const query = `
-        INSERT INTO buyer (BuyerID, Name, Email, ProfilePicture, Password, ShippingAddress, BusinessDetails, YearlyWage, ApprovalStatus)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO buyer ( Name, Email,  Password, ShippingAddress, BusinessDetails, YearlyWage, ApprovalStatus)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
-    const values = [buyerID, Name, Email, ProfilePicture, Password, ShippingAddress, BusinessDetails, YearlyWage, ApprovalStatus];
+    const values = [ name, email,  password, shippingAddress, businessDetails, yearlyWage, approvalStatus];
     
     db.query(query, values, (err, result) => {
         if (err) return res.status(500).json(err);

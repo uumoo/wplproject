@@ -11,6 +11,14 @@ router.get('/user/:artistID', (req, res) => {
         res.json(result);
       });
 });
+router.get('/email', (req, res) => {
+    
+  const query = "SELECT Email FROM artist ";
+  db.query(query, [], (err, result) => {
+    if (err) return res.status(500).json(err);
+    res.json(result);
+  });
+});
 
 router.post('/signin', (req, res) => {
     const { email, password } = req.body;
@@ -29,31 +37,25 @@ router.post('/signin', (req, res) => {
   });
   
 
-
-router.post('/:artistID/new', (req, res) => {
-    const { artistID } = req.params;
-   //const {  Name, Email, ProfilePicture, Password, Bio, PortfolioURL, ApprovalStatus } = req.body;
-
-    const Name = "Sokina";
-    const Email = "sokina@example.com";
-    const ProfilePicture = "";
-    const Password = "abcdsddsds";
-    const Bio = "a rising star";
-    const PortfolioURL = "fb.com/sokina";
-    const ApprovalStatus = "pending";
-   
-   
-   const query = `
-        INSERT INTO artist (ArtistID, Name, Email, ProfilePicture, Password, Bio, PortfolioURL, ApprovalStatus)
-        VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)
-    `;
-    const values = [artistID, Name, Email, ProfilePicture, Password, Bio, PortfolioURL, ApprovalStatus];
-    
-    db.query(query, values, (err, result) => {
-        if (err) return res.status(500).json(err);
-        res.status(201).json({ message: 'Artist created successfully', result });
-    });
-});
+  router.post('/signup', (req, res) => {
+     const { name, email, password, bio, portfolioURL } = req.body;
+     const approvalStatus = "approved";  
+  
+     const query = `
+         INSERT INTO artist (Name, Email, Password, Bio, PortfolioURL, ApprovalStatus)
+         VALUES (?, ?, ?, ?, ?, ?)
+     `;
+  
+     const values = [name, email, password, bio, portfolioURL, approvalStatus];
+  
+     db.query(query, values, (err, result) => {
+         if (err) return res.status(500).json({ error: err });
+         res.status(201).json({ message: 'Artist created successfully', result });
+     });
+  });
+  
+  module.exports = router;
+  
 
 
 

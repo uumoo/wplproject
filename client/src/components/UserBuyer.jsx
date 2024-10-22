@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import './UserBuyerPublic.css';  // Import CSS for styling
+import './UserBuyerPublic.css';  
 
 const UserBuyer = () => {
-  const { buyerID } = useParams();  // Get buyerID from URL params
-  const [buyer, setBuyer] = useState(null);  // State to store buyer details
+  const { buyerID } = useParams();  
+  const [buyer, setBuyer] = useState(null);  
 
   useEffect(() => {
     const fetchBuyerDetails = async () => {
       try {
         const response = await axios.get(`http://localhost:8000/api/buyers/user/${buyerID}`);
-        setBuyer(response.data[0]);  // Set the buyer data
+        setBuyer(response.data[0]);  
       } catch (error) {
         console.error('Error fetching buyer details:', error);
       }
