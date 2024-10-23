@@ -160,10 +160,10 @@ router.get('/:auctionId', (req, res) => {
   
 
     const { auctionId } = req.params;
-    //const { BuyerID, BidAmount } = req.body;
-    //const auctionId = 1; // Example auction ID
-    const buyerId = 2;   
-    const newBidAmount = 700000; 
+    const { BuyerID, BidAmount } = req.body;
+    //const auctionId = 1; 
+    //const buyerId = 2;   
+    //const newBidAmount = 700000; 
     const auctionStatusQuery = 'SELECT EndTime, AuctionStatus FROM auction WHERE AuctionID = ?';
     db.query(auctionStatusQuery, [auctionId], (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
