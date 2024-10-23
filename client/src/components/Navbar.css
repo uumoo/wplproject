@@ -107,3 +107,124 @@
     padding: 0.5rem 1rem;
   }
 }
+
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+  color: white;
+}
+
+.navbar-left {
+  position: relative;
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 40px; /* Positioning the dropdown below the button */
+  left: 0;
+  background-color: #444;
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+  border-radius: 5px;
+  width: 150px;
+}
+
+.dropdown-menu li {
+  padding: 10px 20px;
+  cursor: pointer;
+  color: white;
+}
+
+.dropdown-menu li:hover {
+  background-color: #555;
+}
+
+.navbar-logo {
+  font-size: 1.8rem;
+}
+
+.navbar-auth {
+  display: flex;
+  gap: 10px;
+}
+
+.login-btn, .signup-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-btn:hover, .signup-btn:hover {
+  background-color: #0056b3;
+}
+.navbar {
+  display: flex;
+  justify-content: flex-start; /* Align items to the left */
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+  color: white;
+}
+
+.navbar-left {
+  position: relative;
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: relative; /* Dropdown will be positioned relative to the button */
+  background-color: #444;
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  border-radius: 5px;
+  width: 150px;
+}
+
+.menu-item {
+  display:list-item;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: white;
+  background-color: #444;
+  border-bottom: 1px solid #555; /* Adds a divider between items */
+}
+
+.menu-item:hover {
+  background-color: #555;
+}
+
+.menu-item:last-child {
+  border-bottom: none; /* Remove border for last item */
+}
+
+/* Ensure the dropdown takes full width on mobile devices */
+@media (max-width: 768px) {
+  .dropdown-menu {
+    width: 100%;
+  }
+}
+

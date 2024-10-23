@@ -28,3 +28,19 @@
     text-decoration: underline;
   }
   
+  .upload-artwork-btn {
+    margin-top: 30px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    color: white;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .upload-artwork-btn:hover {
+    background-color: #218838;
+  }
+  

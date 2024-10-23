@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const artists = [
-  { name: "Mike Lambert", location: "Texas", image: "/images/artist1.jpg" },
+  { name: "Mike Lambert", location: "Texas", image: "/images/artist1.webp" },
   { name: "Eugenia Cohen", location: "Amsterdam", image: "/images/artist2.jpg" },
 ];
 

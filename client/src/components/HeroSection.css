@@ -26,7 +26,7 @@
     background-repeat: no-repeat;
   
     /* Blur effect for the background only */
-    filter: blur(8px); /* Adjust the blur value to your preference */
+    filter: blur(7px); /* Adjust the blur value to your preference */
     z-index: 1;
   }
   

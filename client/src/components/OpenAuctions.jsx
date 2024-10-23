@@ -3,7 +3,8 @@ import Slider from 'react-slick';
 import { useNavigate } from 'react-router-dom';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import '../components/OpenAuctions.css'; 
+import  "../Index.css"; // Adjust path as needed
+
 
 import auction1 from '../assets/images/auction1.jpg';
 import auction2 from '../assets/images/auction2.jpg';
