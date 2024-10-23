@@ -36,7 +36,7 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-logo">
-        <h1>art kid.</h1>
+        <h1>Artisify</h1>
       </div>
 
       <div className="navbar-auth">
