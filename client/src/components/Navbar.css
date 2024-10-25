@@ -1,74 +1,68 @@
-/* General Navbar Styling */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #f8f8f8;
-
-  /* Added for sticky behavior */
-  position: sticky; /* Make the navbar sticky */
-  top: 0;           /* Stick it to the top */
-  z-index: 1000;    /* Ensures the navbar stays on top of other content */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Adds shadow for better visibility */
-}
-
-.navbar-logo h1 {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.navbar-menu {
-  display: flex;
-  list-style: none;
-  gap: 1.5rem;
-}
-
-.navbar-menu li {
-  cursor: pointer;
-  font-size: 18px;
-}
-
-/* Authentication Button Styles */
 .navbar-auth {
   display: flex;
   gap: 1rem;
 }
 
-.login-btn, .signup-btn {
+.profile-btn {
+  padding: 0.5rem 1rem;
+  background-color: blue; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.profile-btn:hover {
+  background-color: darkblue; 
+}
+
+.logout-btn {
+  padding: 0.5rem 1rem;
+  background-color: red; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: darkred; 
+}
+
+.login-btn,
+.signup-btn {
   padding: 0.5rem 1rem;
   font-size: 16px;
   border: none;
-  cursor: pointer;
   border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .login-btn {
-  background-color: transparent;
-  border: 2px solid #333;
-  color: #333;
+  background-color: #007bff;
+  border: 2px solid #fff;
+  color: #fff;
 }
 
 .signup-btn {
-  background-color: #333;
+  background-color: #007bff;
   color: white;
-  border: 2px solid #333;
+  border: 2px solid #007bff;
 }
 
-/* Hover Effects */
 .login-btn:hover {
-  background-color: #333;
-  color: white;
-  transition: 0.3s ease;
+  background-color: #fff;
+  color: #333;
 }
 
 .signup-btn:hover {
-  background-color: transparent;
-  color: #333;
-  transition: 0.3s ease;
+  background-color: #0056b3;
+  border: 2px solid #0056b3;
 }
 
-/* Responsive Adjustments */
 @media (max-width: 768px) {
   .navbar-menu {
     display: none;
@@ -78,153 +72,13 @@
     gap: 0.5rem;
   }
 
-  .login-btn, .signup-btn {
+  .login-btn,
+  .signup-btn {
     padding: 0.4rem 0.8rem;
     font-size: 14px;
   }
-}
 
-.view-more-btn {
-  margin-top: 1.5rem;
-  padding: 0.75rem 1.5rem;
-  font-size: 16px;
-  color: white;
-  background-color: #333;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.view-more-btn:hover {
-  background-color: #555;
-}
-
-/* Responsive Styles for Buttons */
-@media (max-width: 768px) {
-  .view-more-btn {
-    font-size: 14px;
-    padding: 0.5rem 1rem;
-  }
-}
-
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #333;
-  padding: 10px 20px;
-  color: white;
-}
-
-.navbar-left {
-  position: relative;
-}
-
-.dropdown-toggle {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 40px; /* Positioning the dropdown below the button */
-  left: 0;
-  background-color: #444;
-  list-style: none;
-  padding: 10px 0;
-  margin: 0;
-  border-radius: 5px;
-  width: 150px;
-}
-
-.dropdown-menu li {
-  padding: 10px 20px;
-  cursor: pointer;
-  color: white;
-}
-
-.dropdown-menu li:hover {
-  background-color: #555;
-}
-
-.navbar-logo {
-  font-size: 1.8rem;
-}
-
-.navbar-auth {
-  display: flex;
-  gap: 10px;
-}
-
-.login-btn, .signup-btn {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.login-btn:hover, .signup-btn:hover {
-  background-color: #0056b3;
-}
-.navbar {
-  display: flex;
-  justify-content: flex-start; /* Align items to the left */
-  align-items: center;
-  background-color: #333;
-  padding: 10px 20px;
-  color: white;
-}
-
-.navbar-left {
-  position: relative;
-}
-
-.dropdown-toggle {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.dropdown-menu {
-  position: relative; /* Dropdown will be positioned relative to the button */
-  background-color: #444;
-  list-style: none;
-  padding: 0;
-  margin: 10px 0;
-  border-radius: 5px;
-  width: 150px;
-}
-
-.menu-item {
-  display:list-item;
-  padding: 10px 20px;
-  cursor: pointer;
-  color: white;
-  background-color: #444;
-  border-bottom: 1px solid #555; /* Adds a divider between items */
-}
-
-.menu-item:hover {
-  background-color: #555;
-}
-
-.menu-item:last-child {
-  border-bottom: none; /* Remove border for last item */
-}
-
-/* Ensure the dropdown takes full width on mobile devices */
-@media (max-width: 768px) {
   .dropdown-menu {
     width: 100%;
   }
 }
-

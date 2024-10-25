@@ -1,38 +1,36 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate for navigation
-import './SignIn.css';  // Import your CSS file for styling
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from './AuthContext';
+import './SignIn.css';
 
 const SignIn = () => {
-  const [userType, setUserType] = useState('artist');  // User type: artist or buyer
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const [userType, setUserType] = useState('artist');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();  // Initialize navigate for redirecting
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const data = { email, password };
       let response;
 
       if (userType === 'artist') {
-        //response = await axios.post(`http://localhost:8000/api/artists/signin`, data);
-        //const artistID = response.data.artistID;
-        //navigate(`/user/artist/${artistID}`); 
-        navigate(`/`); 
-      } else if (userType === 'buyer') {
-        //response = await axios.post(`http://localhost:8000/api/buyers/signin`, data);
-        //const buyerID = response.data.buyerID;
-        //navigate(`/user/buyer/${buyerID}`); 
-        navigate(`/`);
-
+        response = await axios.post(`http://localhost:8000/api/artists/signin`, data);
+        const userData = { ID: response.data.artistID, Status: 1, UserType: 'artist' };
+        await login(userData);
+        navigate(`/user/artist/${userData.ID}`);
+      } else {
+        response = await axios.post(`http://localhost:8000/api/buyers/signin`, data);
+        const userData = { ID: response.data.buyerID, Status: 1, UserType: 'buyer' };
+        await login(userData);
+        navigate(`/user/buyer/${userData.ID}`);
       }
-
-      alert('Sign-in successful!');
     } catch (error) {
       console.error('Error signing in:', error);
-      alert('Invalid credentials.');
+      alert('Invalid Email or Password!');
     }
   };
 
@@ -47,17 +45,14 @@ const SignIn = () => {
             <option value="buyer">Buyer</option>
           </select>
         </label>
-
         <label>
           Email:
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         </label>
-
         <label>
           Password:
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </label>
-
         <button type="submit">Sign In</button>
       </form>
     </div>

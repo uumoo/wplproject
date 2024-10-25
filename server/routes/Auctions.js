@@ -61,7 +61,6 @@ router.get('/active', (req, res) => {
 router.get('/active/:categoryID', (req, res) => {
   const { categoryID } = req.params;
 
-  // Update expired auctions first
   const timeExpirationQuery = "UPDATE auction SET AuctionStatus = 'closed' WHERE EndTime < NOW()";
   db.query(timeExpirationQuery, (err, updateResults) => {
       if (err) return res.status(500).json(err);
@@ -81,7 +80,6 @@ router.get('/active/:categoryID', (req, res) => {
   });
 });
 
-    // Get auction details by AuctionID
 router.get('/:auctionId', (req, res) => {
 
   const pendingCheckQuery = "SELECT AuctionID, StartTime, AuctionStatus FROM auction WHERE AuctionStatus = 'pending'";
@@ -107,7 +105,7 @@ router.get('/:auctionId', (req, res) => {
   db.query(timeExpirationQuery, (err, results) => {
     if (err) return res.status(500).json(err);
     const { auctionId } = req.params;
-    //main query
+ 
     const query = `
         SELECT 
               a.AuctionID, 
@@ -135,7 +133,7 @@ router.get('/:auctionId', (req, res) => {
     });
   });
 }); 
-  // add a new bid 
+
   router.post('/:auctionId/bid', (req, res) => {
 
     const pendingCheckQuery = "SELECT AuctionID, StartTime, AuctionStatus FROM auction WHERE AuctionStatus = 'pending'";
@@ -190,7 +188,6 @@ router.get('/:auctionId', (req, res) => {
             const StartingBid = result[0].sb;
             
             if(newBidAmount>StartingBid){
-                // check the current maximum bid for the auction
                 const maxBidQuery = 'SELECT MAX(BidAmount) AS maxBidAmount FROM bid WHERE AuctionID = ?';
             
                 db.query(maxBidQuery, [auctionId], (err, result) => {
@@ -198,9 +195,7 @@ router.get('/:auctionId', (req, res) => {
         
                     const maxBidAmount = result[0].maxBidAmount || 0; 
                     console.log(maxBidAmount)
-                    // check if new bid is higher than the current max bid
                     if (newBidAmount > maxBidAmount) {
-                        // insert the new bid
                         const insertBidQuery = 'INSERT INTO bid (AuctionID, BuyerID, BidAmount, BidTime) VALUES (?, ?, ?, NOW())';
                         db.query(insertBidQuery, [auctionId, buyerId, newBidAmount], (err, result) => {
                             if (err) throw err;
@@ -233,7 +228,6 @@ router.get('/:auctionId', (req, res) => {
 
 });
 
-  // Create a new auction
   router.post('/:artworkID/new', (req, res) => {
     const { artworkID } = req.params;
     AuctionStatus = 'active';

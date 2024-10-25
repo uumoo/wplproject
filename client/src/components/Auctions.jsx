@@ -7,8 +7,8 @@ import wallowingBreeze from '../assets/images/wallowing-breeze.png';
 const Auctions = () => {
   const navigate = useNavigate();
   const [auctions, setAuctions] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
 
 
 /*

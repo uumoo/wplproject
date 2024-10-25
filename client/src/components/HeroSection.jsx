@@ -1,7 +1,6 @@
 import React from 'react';
 import './HeroSection.css';
-// Import the GIF file from assets
-import gifImage from '../assets/gifs/giphy.gif'; // Adjust path if necessary
+import gifImage from '../assets/gifs/giphy.gif'; 
 
 const HeroSection = () => {
   return (

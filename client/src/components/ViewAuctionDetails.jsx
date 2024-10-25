@@ -39,7 +39,6 @@ const ViewAuctionDetails = () => {
   };
 
   const handleBid = () => {
-    // Redirect to AuctionBidding page with the auction ID
     navigate(`/auction-bidding/${auction.AuctionID}`);
   };
 

@@ -29,7 +29,7 @@ router.post('/signin', (req, res) => {
         if (result.length === 0) return res.status(401).json({ message: 'Invalid credentials.' });
 
         const buyerID = result[0].BuyerID;
-        res.json({ message: 'Sign-in successful', buyerID });  // Return buyerID to the client
+        res.json({ message: 'Sign-in successful', buyerID });  
     });
 });
 

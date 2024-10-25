@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors')
 
-//router
 const AuctionsRoutes = require('./routes/Auctions');
 const AdminsRoutes = require('./routes/Admins');
 const ArtistsRoutes = require('./routes/Artists');
@@ -11,6 +10,7 @@ const CartsRoutes = require('./routes/Carts');
 const CatagoriesRoutes = require('./routes/Catagories');
 const IndexRoutes = require('./routes/Index');
 const ReviewsRoutes = require('./routes/Reviews');
+const LoggedInRoutes = require('./routes/LoggedIn');
 
 const app = express();
 app.use(express.json());
@@ -26,6 +26,7 @@ app.use('/api/carts', CartsRoutes);
 app.use('/api/catagories', CatagoriesRoutes);
 app.use('/api/', IndexRoutes);
 app.use('/api/reviews', ReviewsRoutes );
+app.use('/api/loggedin', LoggedInRoutes );
 
 
 

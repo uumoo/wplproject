@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Navbar.css'; // Link to CSS for custom styles
+import { useAuth } from './AuthContext';
+import './Navbar.css';
 
 const Navbar = () => {
+  const { loggedinfo, logout, fetchLoggedInfo } = useAuth();
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const handleSignInClick = () => {
-    navigate(`/signin`); 
-  };
-
-  const handleSignUpClick = () => {
-    navigate(`/signup`); 
-  };
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
+  const handleLogoutClick = async () => {
+    await logout();
+    fetchLoggedInfo(); 
+    navigate('/');
+  };
+
+  const handleSignInClick = () => navigate('/signin');
+  const handleSignUpClick = () => navigate('/signup');
 
   return (
     <nav className="navbar">
@@ -40,8 +43,25 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-auth">
-        <button onClick={handleSignInClick} className="login-btn">Login</button>
-        <button onClick={handleSignUpClick} className="signup-btn">Sign Up</button>
+        {loggedinfo && loggedinfo.Status === 1 ? (
+          <>
+            {loggedinfo.UserType === 'artist' ? (
+              <button onClick={() => navigate(`/user/artist/${loggedinfo.ID}`)} className="profile-btn">
+                Profile
+              </button>
+            ) : (
+              <button onClick={() => navigate(`/user/buyer/${loggedinfo.ID}`)} className="profile-btn">
+                Profile
+              </button>
+            )}
+            <button onClick={handleLogoutClick} className="logout-btn">Logout</button>
+          </>
+        ) : (
+          <>
+            <button onClick={handleSignInClick} className="login-btn">Login</button>
+            <button onClick={handleSignUpClick} className="signup-btn">Sign Up</button>
+          </>
+        )}
       </div>
     </nav>
   );

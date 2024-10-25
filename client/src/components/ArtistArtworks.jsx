@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import './ArtistArtworks.css';  // Import CSS for styling
+import './ArtistArtworks.css';  
 
 const ArtistArtworks = () => {
-  const { artistID } = useParams();  // Get artistID from URL params
-  const [artworks, setArtworks] = useState([]);  // State to store artworks
-  const [loading, setLoading] = useState(true);  // State to manage loading
+  const { artistID } = useParams();  
+  const [artworks, setArtworks] = useState([]);  
+  const [loading, setLoading] = useState(true);  
 
   useEffect(() => {
     const fetchArtworks = async () => {
       try {
         const response = await axios.get(`http://localhost:8000/api/artist/artworks`, {
-          params: { artistID } // Assuming the backend expects artistID as a query parameter
+          params: { artistID } 
         });
-        setArtworks(response.data);  // Set the artworks data
+        setArtworks(response.data);  
       } catch (error) {
         console.error('Error fetching artworks:', error);
       } finally {
-        setLoading(false); // Set loading to false once fetching is complete
+        setLoading(false); 
       }
     };
 
@@ -49,4 +49,3 @@ const ArtistArtworks = () => {
 };
 
 export default ArtistArtworks;
-//change backend....

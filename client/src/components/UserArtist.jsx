@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './UserArtist.css';  // Import CSS for styling
+import './UserArtist.css';  
 
 const UserArtist = () => {
-  const { artistID } = useParams();  // Get artistID from URL params
-  const [artist, setArtist] = useState(null);  // State to store artist details
-  const navigate = useNavigate(); // For navigation
+  const { artistID } = useParams();  
+  const [artist, setArtist] = useState(null);  
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchArtistDetails = async () => {
       try {
         const response = await axios.get(`http://localhost:8000/api/artists/user/${artistID}`);
-        setArtist(response.data[0]);  // Set the artist data
+        setArtist(response.data[0]);  
       } catch (error) {
         console.error('Error fetching artist details:', error);
       }
@@ -22,12 +22,10 @@ const UserArtist = () => {
   }, [artistID]);
 
   const handleUploadArtworkClick = () => {
-    // Navigate to the artwork upload page
     navigate(`/artists/${artistID}/upload-artwork`);
   };
 
   const handleViewArtworksClick = () => {
-    // Navigate to the artist's artworks page
     navigate(`/artists/${artistID}/artworks`);
   };
 
@@ -42,12 +40,10 @@ const UserArtist = () => {
       <p><strong>Portfolio:</strong> <a href={artist.PortfolioURL.startsWith('http') ? artist.PortfolioURL : `http://${artist.PortfolioURL}`} target="_blank" rel="noreferrer">{artist.PortfolioURL}</a></p>
       <p><strong>Approval Status:</strong> {artist.ApprovalStatus}</p>
       
-      {/* Section to upload artworks */}
       <button className="upload-artwork-btn" onClick={handleUploadArtworkClick}>
         Upload Artwork
       </button>
 
-      {/* Section to view the artist's artworks */}
       <button className="my-artworks-btn" onClick={handleViewArtworksClick}>
         My Artworks
       </button>

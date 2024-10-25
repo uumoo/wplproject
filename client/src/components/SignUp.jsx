@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './SignUp.css';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 
 const SignUp = () => {
+  const { login } = useAuth();
   const [userType, setUserType] = useState('artist');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -60,15 +62,19 @@ const SignUp = () => {
         await axios.post(`http://localhost:8000/api/buyers/signup`, dataBuyer);
       }
       alert('Sign-up successful!');
-
+      let response;
       if (userType === 'artist') {
-        const response = await axios.post(`http://localhost:8000/api/artists/signin`, data);
-        const artistID = response.data.artistID;
-        navigate(`/user/artist/${artistID}`);
+        response = await axios.post(`http://localhost:8000/api/artists/signin`, data);
+        const userData = { ID: response.data.artistID, Status: 1, UserType: 'artist' };
+        await login(userData);
+        navigate(`/user/artist/${userData.ID}`);
+
+
       } else if (userType === 'buyer') {
-        const response = await axios.post(`http://localhost:8000/api/buyers/signin`, data);
-        const buyerID = response.data.buyerID;
-        navigate(`/user/buyer/${buyerID}`);
+        response = await axios.post(`http://localhost:8000/api/buyers/signin`, data);
+        const userData = { ID: response.data.buyerID, Status: 1, UserType: 'buyer' };
+        await login(userData);
+        navigate(`/user/buyer/${userData.ID}`);
       }
     } catch (error) {
       console.error('Error signing up:', error);

@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import './UploadArtwork.css';  // Custom CSS for styling
+import './UploadArtwork.css';  
 
 const UploadArtwork = () => {
-  const { artistID } = useParams();  // Get artistID from URL params
+  const { artistID } = useParams();  
   const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [basePrice, setBasePrice] = useState('');
   const [category, setCategory] = useState('');
-  const [status, setStatus] = useState('Pending');  // Default status is 'Pending'
+  const [status, setStatus] = useState('Pending');  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,13 +22,13 @@ const UploadArtwork = () => {
       description,
       basePrice,
       category,
-      status,  // Status will be pending by default
+      status,  
     };
 
     try {
       await axios.post(`http://localhost:8000/api/artworks/upload`, artworkData);
       alert('Artwork uploaded successfully!');
-      navigate(`/artists/user/${artistID}`);  // Redirect back to artist profile after submission
+      navigate(`/artists/user/${artistID}`);  
     } catch (error) {
       console.error('Error uploading artwork:', error);
     }
@@ -87,7 +87,7 @@ const UploadArtwork = () => {
             type="text"
             id="status"
             value={status}
-            disabled  // The status is pending by default, and can't be changed
+            disabled  
           />
         </div>
 

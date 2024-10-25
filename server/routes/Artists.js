@@ -38,7 +38,7 @@ router.post('/signin', (req, res) => {
   
 
   router.post('/signup', (req, res) => {
-     const { name, email, password, bio, portfolioURL } = req.body;
+     const {name , email, password, bio, portfolioURL } = req.body;
      const approvalStatus = "approved";  
   
      const query = `

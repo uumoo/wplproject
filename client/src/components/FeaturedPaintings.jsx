@@ -1,6 +1,6 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Using React Router for navigation
-import painting1 from '../assets/images/painting1.jpg'; // Adjust the path based on your folder structure
+import { useNavigate } from 'react-router-dom'; 
+import painting1 from '../assets/images/painting1.jpg'; 
 import painting2 from '../assets/images/painting2.jpg';
 import painting3 from '../assets/images/painting3.jpg';
 
@@ -11,7 +11,7 @@ const paintings = [
 ];
 
 const FeaturedPaintings = () => {
-  const navigate = useNavigate(); // Navigation hook
+  const navigate = useNavigate(); 
 
   return (
     <section className="featured-paintings">
