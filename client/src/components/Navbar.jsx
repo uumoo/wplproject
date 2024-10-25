@@ -39,7 +39,7 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-logo">
-        <h1>Artisify</h1>
+        <h1 onClick={() => navigate(`/`)} className="artisify-btn" >A r t i s i f y</h1>
       </div>
 
       <div className="navbar-auth">
