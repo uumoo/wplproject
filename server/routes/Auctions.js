@@ -5,26 +5,33 @@ const router = express.Router();
 //things to implement : api/auction/ call korle start time er agey "pending" thakbe ar pore active thakbe
 
 router.get('/active', (req, res) => {
-  const pendingCheckQuery = "SELECT AuctionID, StartTime, AuctionStatus FROM auction WHERE AuctionStatus = 'pending'";
 
+
+  const timeExpirationQuery = "UPDATE auction SET AuctionStatus = 'closed' WHERE EndTime < NOW()"
+  db.query(timeExpirationQuery, (err, results) => {
+    if (err) return res.status(500).json(err);
+  }); 
+  
+  const pendingCheckQuery = "SELECT AuctionID, StartTime, AuctionStatus FROM auction WHERE AuctionStatus = 'pending'";
   db.query(pendingCheckQuery, [], (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
-    if (result.length === 0) return res.status(404).json({ message: 'No pending auctions found.' });
+    if (result.length > 0) {
+      const currentTime = new Date();
+      result.forEach(auction => {
+        const { AuctionID, StartTime } = auction;
 
-    const currentTime = new Date();
+        if (currentTime >= new Date(StartTime)) {
+          const updateStatusQuery = "UPDATE auction SET AuctionStatus = 'active' WHERE AuctionID = ?";
+          
+          db.query(updateStatusQuery, [AuctionID], (err, updateResult) => {
+            if (err) return res.status(500).json({ error: err.message });
+            console.log(`AuctionID ${AuctionID} has been set to 'active'.`);
+          });
+        }
+      });
 
-    result.forEach(auction => {
-      const { AuctionID, StartTime } = auction;
-
-      if (currentTime >= new Date(StartTime)) {
-        const updateStatusQuery = "UPDATE auction SET AuctionStatus = 'active' WHERE AuctionID = ?";
-        
-        db.query(updateStatusQuery, [AuctionID], (err, updateResult) => {
-          if (err) return res.status(500).json({ error: err.message });
-          console.log(`AuctionID ${AuctionID} has been set to 'active'.`);
-        });
-      }
-    });
+    }
+   
   });
 
   const activeAuctionsQuery = `
@@ -64,7 +71,7 @@ router.get('/active/:categoryID', (req, res) => {
   const timeExpirationQuery = "UPDATE auction SET AuctionStatus = 'closed' WHERE EndTime < NOW()";
   db.query(timeExpirationQuery, (err, updateResults) => {
       if (err) return res.status(500).json(err);
-
+    
       const query = `
           SELECT a.* 
           FROM auction a
@@ -82,28 +89,11 @@ router.get('/active/:categoryID', (req, res) => {
 
 router.get('/:auctionId', (req, res) => {
 
-  const pendingCheckQuery = "SELECT AuctionID, StartTime, AuctionStatus FROM auction WHERE AuctionStatus = 'pending'";
-  db.query(pendingCheckQuery, [], (err, result) => {
-      if (err) return res.status(500).json({ error: err.message });
-      if (result.length === 0) return res.status(404).json({ message: 'No pending auctions found.' });
   
-      const currentTime = new Date();
-      result.forEach(auction => {
-          const { AuctionID, StartTime } = auction;
-          if (currentTime >= new Date(StartTime)) {
-              const updateStatusQuery = "UPDATE auction SET AuctionStatus = 'active' WHERE AuctionID = ?";
-              
-              db.query(updateStatusQuery, [AuctionID], (err, updateResult) => {
-                  if (err) return res.status(500).json({ error: err.message });
-                  console.log(`AuctionID ${AuctionID} has been set to 'active'.`);
-              }); 
-          }
-      });
-  
-  });
   const timeExpirationQuery = "UPDATE auction SET AuctionStatus = 'closed' WHERE EndTime < NOW()"
   db.query(timeExpirationQuery, (err, results) => {
     if (err) return res.status(500).json(err);
+  
     const { auctionId } = req.params;
  
     const query = `
@@ -136,23 +126,34 @@ router.get('/:auctionId', (req, res) => {
 
   router.post('/:auctionId/bid', (req, res) => {
 
+    const timeExpirationQuery = "UPDATE auction SET AuctionStatus = 'closed' WHERE EndTime < NOW()"
+    db.query(timeExpirationQuery, (err, results) => {
+      if (err) return res.status(500).json(err);
+    });
+
     const pendingCheckQuery = "SELECT AuctionID, StartTime, AuctionStatus FROM auction WHERE AuctionStatus = 'pending'";
     db.query(pendingCheckQuery, [], (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
-        if (result.length === 0) return res.status(404).json({ message: 'No pending auctions found.' });
+        if (result.length > 0) {
+
+          const currentTime = new Date();
+          result.forEach(auction => {
+              const { AuctionID, StartTime } = auction;
+              if (currentTime >= new Date(StartTime)) {
+                  const updateStatusQuery = "UPDATE auction SET AuctionStatus = 'active' WHERE AuctionID = ?";
+                  
+                  db.query(updateStatusQuery, [AuctionID], (err, updateResult) => {
+                      if (err) return res.status(500).json({ error: err.message });
+                      console.log(`AuctionID ${AuctionID} has been set to 'active' from bid.`);
+                  });
+              }
+          });
+
+
+
+        }
     
-        const currentTime = new Date();
-        result.forEach(auction => {
-            const { AuctionID, StartTime } = auction;
-            if (currentTime >= new Date(StartTime)) {
-                const updateStatusQuery = "UPDATE auction SET AuctionStatus = 'active' WHERE AuctionID = ?";
-                
-                db.query(updateStatusQuery, [AuctionID], (err, updateResult) => {
-                    if (err) return res.status(500).json({ error: err.message });
-                    console.log(`AuctionID ${AuctionID} has been set to 'active' from bid.`);
-                });
-            }
-        });
+          
     
     });
   
@@ -187,7 +188,7 @@ router.get('/:auctionId', (req, res) => {
             if (err) return res.status(500).json(err);
             const StartingBid = result[0].sb;
             
-            if(newBidAmount>StartingBid){
+            if(BidAmount>StartingBid){
                 const maxBidQuery = 'SELECT MAX(BidAmount) AS maxBidAmount FROM bid WHERE AuctionID = ?';
             
                 db.query(maxBidQuery, [auctionId], (err, result) => {
@@ -195,13 +196,13 @@ router.get('/:auctionId', (req, res) => {
         
                     const maxBidAmount = result[0].maxBidAmount || 0; 
                     console.log(maxBidAmount)
-                    if (newBidAmount > maxBidAmount) {
+                    if (BidAmount > maxBidAmount) {
                         const insertBidQuery = 'INSERT INTO bid (AuctionID, BuyerID, BidAmount, BidTime) VALUES (?, ?, ?, NOW())';
-                        db.query(insertBidQuery, [auctionId, buyerId, newBidAmount], (err, result) => {
+                        db.query(insertBidQuery, [auctionId, BuyerID, BidAmount], (err, result) => {
                             if (err) throw err;
                             console.log('New bid inserted successfully.');
                             const updateAuctionQuery = 'UPDATE auction SET HighestBid = ?, WinnerID = ? WHERE AuctionID = ?';
-                            db.query(updateAuctionQuery, [newBidAmount, buyerId, auctionId], (err, result) => {
+                            db.query(updateAuctionQuery, [BidAmount, BuyerID, auctionId], (err, result) => {
                                 if (err) return res.status(500).json({ error: err.message });
                                 
                                 console.log('Auction table updated with new highest bid and winner.');
@@ -223,7 +224,6 @@ router.get('/:auctionId', (req, res) => {
 
         }
            
-
     });
 
 });

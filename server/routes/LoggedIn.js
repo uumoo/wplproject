@@ -12,13 +12,13 @@ router.get('/', (req, res) => {
   });
 
   router.post('/', (req, res) => {
-    const { id, statusac, usertype } = req.body;
+    const { ID, Status, UserType } = req.body;
 
     //const id = 3
     //const statusac  = 0
     //const usertype = 'buyer'
     const query = "UPDATE loggedin SET ID = ?, Status = ?,UserType = ? WHERE verify = 1";
-    db.query(query, [id, statusac, usertype], (err, result) => {
+    db.query(query, [ID, Status, UserType], (err, result) => {
       if (err) return res.status(500).json({ error: err.message });
       
       res.json({result}); 

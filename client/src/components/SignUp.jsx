@@ -4,6 +4,9 @@ import './SignUp.css';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 
+
+import SignIn from "./SignIn";
+
 const SignUp = () => {
   const { login } = useAuth();
   const [userType, setUserType] = useState('artist');
@@ -155,7 +158,16 @@ const SignUp = () => {
 
         <button type="submit">Sign Up</button>
       </form>
+      <p>&nbsp;&nbsp;</p>
+      <h1 className="or">Or</h1>
+      <label>
+      <SignIn/>
+      </label>
+      
+      
     </div>
+    
+    
   );
 };
 

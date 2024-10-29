@@ -2,12 +2,17 @@
     margin: 50px auto;
     padding: 20px;
     max-width: 400px;
-    background-color: #f9f9f9;
+    background-color: #daeaf3;
     border-radius: 10px;
   }
   
   .signup-container h1 {
     text-align: center;
+    
+  }
+  .or {
+    text-align: center;
+    color: #d1d9de;
   }
   
   .signup-container form {

@@ -53,6 +53,37 @@ router.post('/signin', (req, res) => {
          res.status(201).json({ message: 'Artist created successfully', result });
      });
   });
+
+
+  router.get('/user/:artistID/artwork', (req, res) => {
+    const { artistID } = req.params;
+
+    const query = `
+        SELECT 
+            ArtworkID, 
+            Title, 
+            Description, 
+            ImageURL, 
+            BasePrice, 
+            CategoryID, 
+            ApprovalStatus 
+        FROM artwork 
+        WHERE ArtistID = ?
+    `;
+
+    db.query(query, [artistID], (err, results) => {
+        if (err) {
+            console.error('Error retrieving artworks:', err);
+            return res.status(500).json({ error: 'Database error' });
+        }
+
+        res.status(200).json(results);
+    });
+});
+
+
+
+
   
   module.exports = router;
   

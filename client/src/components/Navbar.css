@@ -1,11 +1,13 @@
 .navbar-auth {
   display: flex;
   gap: 1rem;
+  
 }
 
 
 .artisify-btn {
-  font-size: 2rem; 
+  text-align: center;
+  font-size: 2.35rem; 
   font-weight: bold; 
   color: #333; 
   cursor: pointer; 
@@ -15,6 +17,7 @@
 
 .artisify-btn:hover {
   transform: scale(1.1); 
+  filter: drop-shadow(0 0 10em #646cffaa);
 }
 
 .profile-btn {

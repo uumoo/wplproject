@@ -25,7 +25,7 @@ const UserBuyerPublic = () => {
   return (
     <div className="buyer-profile">
       <h1>{buyer.Name}'s Profile</h1>
-      <img src={buyer.ProfilePicture || 'default-profile.png'} alt="Buyer" className="profile-picture" />
+      <img src={buyer.ProfilePicture || '/images/default-profile.jpg'} alt="Buyer" className="profile-picture" />
       <p><strong>Email:</strong> {buyer.Email}</p>
       <p><strong>Shipping Address:</strong> {buyer.ShippingAddress}</p>
       <p><strong>Business Details:</strong> {buyer.BusinessDetails}</p>

@@ -53,7 +53,7 @@ function App() {
             <HeroSection /> 
             <ExploreOptions />
             <OpenAuctions />  
-            <FeaturedArtists />
+            { /* <FeaturedArtists />
            { /*<FeaturedPaintings />*/}
            {/* <CustomerReviews /> */}
           </main>
@@ -68,13 +68,13 @@ function App() {
         <Route path="/artists" element={<ArtistsPage />} />
         <Route path="/public/artist/:artistID" element={<UserArtistPublic />} />  
         <Route path="/public/buyer/:buyerID" element={<UserBuyerPublic />} /> 
-        <Route path="/user/artist/:artistID" element={<UserArtist />} />  
+        <Route path="/user/artist/:artistID" element={<UserArtist/>} />  
         <Route path="/user/buyer/:buyerID" element={<UserBuyer />} /> 
         <Route path="/auctions" element={<Auctions />} />  
         <Route path="/reviews" element={<ReviewsPage />} />
         <Route path="/auction/:id" element={<ViewAuctionDetails />} /> 
         <Route path="/artists/:artistID/upload-artwork" element={<UploadArtwork />} />
-        <Route path="/artists/:artistID/artworks" element={<ArtistArtworks />} />
+        <Route path="/user/artists/:artistID/artworks" element={<ArtistArtworks />} />
         <Route path="/auction-bidding/:id" element={<AuctionBidding />} />
       </Routes>
 

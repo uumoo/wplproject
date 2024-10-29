@@ -2,9 +2,11 @@ import './ViewAuctionDetails.css';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 import axios from 'axios';
 
 const ViewAuctionDetails = () => {
+  const { loggedinfo} = useAuth();
   const navigate = useNavigate();
   const { id } = useParams(); 
   const [auction, setAuction] = useState(null); 
@@ -39,11 +41,19 @@ const ViewAuctionDetails = () => {
   };
 
   const handleBid = () => {
-    navigate(`/auction-bidding/${auction.AuctionID}`);
+    if (loggedinfo.Status == 1 && loggedinfo.UserType == "buyer"){
+      navigate(`/auction-bidding/${auction.AuctionID}`);
+      
+    }
+    else{
+      alert("LOGIN OR SIGNUP AS A BUYER!!!")
+      navigate(`/signup`);
+    }
+    
   };
 
   return (
-    <div>
+    <div className="auction-details">
       <h1>Auction Details</h1>
       {auction && (
         <>

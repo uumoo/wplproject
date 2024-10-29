@@ -6,25 +6,25 @@ import "slick-carousel/slick/slick-theme.css";
 import  "../Index.css"; 
 
 
-import auction1 from '../assets/images/auction1.jpg';
-import auction2 from '../assets/images/auction2.jpg';
+import auction1 from '../assets/images/auction1.png';
+import auction2 from '../assets/images/auction2.png';
 
 const auctionImages = [
-  { image: auction1, title: "Bikes Against Wall" },
-  { image: auction2, title: "Modern Art Piece" },
+  { image: auction1, title: "Bids rise, beauty unveiled" },
+  { image: auction2, title: "Souls stirred, desires trailed" },
 ];
 
 const OpenAuctions = () => {
   const navigate = useNavigate();
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
-    speed: 500,
+    speed: 10,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 2500,
     fade: true,
   };
 
@@ -33,14 +33,18 @@ const OpenAuctions = () => {
       <h2>Auctions</h2>
       <Slider {...settings}>
         {auctionImages.map((auction, index) => (
-          <div key={index} className="auction-slide">
+          <div key={index} className="auction-slide" onClick={() => navigate('/auctions')}>
+            <div className="image-container">
             <img src={auction.image} alt={auction.title} className="auction-image" />
+            <span className="overlay-text">click here to view auctions</span>
+            </div>
             <h3>{auction.title}</h3>
           </div>
         ))}
       </Slider>
+      
       <button className="view-more-btn" onClick={() => navigate('/auctions')}>
-        View More Auctions
+        View Auctions
       </button>
     </section>
   );

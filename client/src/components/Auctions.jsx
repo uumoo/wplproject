@@ -47,8 +47,18 @@ const auctionItems = [
     return <p>{error}</p>;
   }
 
-  const handleAuctionClick = (id) => {
-    navigate(`/auction/${id}`); 
+  const handleAuctionClick = (id,Status) => {
+
+      if(Status == 'active') {
+        navigate(`/auction/${id}`); 
+      }
+        
+      else{
+        //alert("This Auction is still pending!!")
+        alert("Auction is not online yet.")
+      }
+        
+
   };
   
   const handleArtistClick = (id) => {
@@ -62,7 +72,7 @@ const auctionItems = [
         {auctions.length > 0 ? (
           auctions.map(item => (
             <div key={item.AuctionID} className="auction-item">
-              <div onClick={() => handleAuctionClick(item.AuctionID)} className="auction-image-container">
+              <div onClick={() => handleAuctionClick(item.AuctionID,item.AuctionStatus)} className="auction-image-container">
                 <img 
                 
                   src={item.ImageURL}  
@@ -78,10 +88,11 @@ const auctionItems = [
                 <p>Status: {item.AuctionStatus}</p>
                 <p>Starting Bid: ${item.StartingBid}</p>
                 <p>Highest Bid: ${item.HighestBid ? item.HighestBid : 'No bids yet'}</p>
-              </div>
-              <button className="bid-button" onClick={() => handleAuctionClick(item.AuctionID)}>
+              
+              <button className="bid-button" onClick={() => handleAuctionClick(item.AuctionID,item.AuctionStatus)}>
                 BID
               </button>
+              </div>
             </div>
           ))
         ) : (

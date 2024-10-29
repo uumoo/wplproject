@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from './AuthContext';
 import './AuctionBidding.css';
 
 const AuctionBidding = () => {
+  const { loggedinfo} = useAuth();
   const { id } = useParams();
   const [auction, setAuction] = useState(null);
   const [highestBid, setHighestBid] = useState(0); 
-  const [newBid, setNewBid] = useState(0); 
+  const [newBid, setNewBid] = useState(); 
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null); 
 
@@ -29,10 +31,20 @@ const AuctionBidding = () => {
     fetchAuctionDetails();
   }, [id]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); 
     if (newBid > highestBid) {
-      
+      location.reload()
+      const BuyerID = loggedinfo.ID
+      const BidAmount = newBid
+      const data = {BuyerID,BidAmount}
+      try{
+      await axios.post(`http://localhost:8000/api/auctions/${id}/bid`,{BuyerID,BidAmount})      
+      location.reload()
+    } catch (err) {
+      setError('Error submitting bid'); 
+      setLoading(false);
+    }
       setHighestBid(newBid); 
       alert(`Your bid of $${newBid} was successfully submitted!`);
     } else {
@@ -52,7 +64,7 @@ const AuctionBidding = () => {
           <input type="number" value={highestBid} disabled className="bid-input" /> 
         </div>
         <div className="bid-section">
-          <label>Your Bid: </label>
+          <label>Place Your Bid: </label>
           <input
             type="number"
             min={highestBid + 1} 

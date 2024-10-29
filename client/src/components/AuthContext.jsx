@@ -26,6 +26,15 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (data) => {
     setLoggedInfo(data);
+    try{
+     await axios.post('http://localhost:8000/api/loggedin',data);
+     
+    } catch (err) {
+      console.error('Failed to fetch login info:', err);
+      setLoggedInfo(null);
+    }
+    
+
   };
 
   const logout = async () => {
