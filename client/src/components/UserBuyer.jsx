@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './UserBuyerPublic.css';  
+import Upload from './Upload';
 
 const UserBuyer = () => {
   const { buyerID } = useParams();  
@@ -26,6 +27,7 @@ const UserBuyer = () => {
     <div className="buyer-profile">
       <h1>{buyer.Name}'s Profile</h1>
       <img src={buyer.ProfilePicture || '/images/default-profile.jpg'} alt="Buyer" className="profile-picture" />
+      <Upload/>
       <p><strong>Email:</strong> {buyer.Email}</p>
       <p><strong>Shipping Address:</strong> {buyer.ShippingAddress}</p>
       <p><strong>Business Details:</strong> {buyer.BusinessDetails}</p>

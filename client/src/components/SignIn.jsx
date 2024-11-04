@@ -26,7 +26,7 @@ const SignIn = () => {
         response = await axios.post(`http://localhost:8000/api/buyers/signin`, data);
         const userData = { ID: response.data.buyerID, Status: 1, UserType: 'buyer' };
         await login(userData);
-        navigate(`/user/buyer/${userData.ID}`);
+        navigate(`/auctions`);
       }
     } catch (error) {
       console.error('Error signing in:', error);

@@ -11,6 +11,7 @@ const CatagoriesRoutes = require('./routes/Catagories');
 const IndexRoutes = require('./routes/Index');
 const ReviewsRoutes = require('./routes/Reviews');
 const LoggedInRoutes = require('./routes/LoggedIn');
+const UploadRoutes = require('./routes/Upload');
 
 const app = express();
 app.use(express.json());
@@ -27,6 +28,7 @@ app.use('/api/catagories', CatagoriesRoutes);
 app.use('/api/', IndexRoutes);
 app.use('/api/reviews', ReviewsRoutes );
 app.use('/api/loggedin', LoggedInRoutes );
+app.use('/api/upload', UploadRoutes );
 
 
 

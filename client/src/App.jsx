@@ -15,6 +15,7 @@ import UserBuyerPublic from './components/UserBuyerPublic';
 import UploadArtwork from './components/UploadArtwork';
 import ArtistArtworks from './components/ArtistArtworks';
 import AuctionBidding from './components/AuctionBidding';
+import Upload from './components/Upload';
 /*
 import UserArtist from "./components/UserArtist"
 import UserBuyer from "./components/UserBuyer";
@@ -54,8 +55,8 @@ function App() {
             <ExploreOptions />
             <OpenAuctions />  
             { /* <FeaturedArtists />
-           { /*<FeaturedPaintings />*/}
-           {/* <CustomerReviews /> */}
+           { /*<FeaturedPaintings />*/
+           /* <CustomerReviews /> */}
           </main>
         } />
         
@@ -72,6 +73,7 @@ function App() {
         <Route path="/user/buyer/:buyerID" element={<UserBuyer />} /> 
         <Route path="/auctions" element={<Auctions />} />  
         <Route path="/reviews" element={<ReviewsPage />} />
+        <Route path="/upload" element={<Upload />} />
         <Route path="/auction/:id" element={<ViewAuctionDetails />} /> 
         <Route path="/artists/:artistID/upload-artwork" element={<UploadArtwork />} />
         <Route path="/user/artists/:artistID/artworks" element={<ArtistArtworks />} />

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './UserArtist.css';  
-
+import Upload from './Upload';
 const UserArtist = () => {
   const { artistID } = useParams();  
   const [artist, setArtist] = useState(null);  
@@ -35,6 +35,7 @@ const UserArtist = () => {
     <div className="artist-profile">
       <h1>{artist.Name}'s Profile</h1>
       <img src={artist.ProfilePicture || '/images/default-profile.jpg'} alt="Artist" className="profile-picture" />
+      <Upload/>
       <p><strong>Email:</strong> {artist.Email}</p>
       <p><strong>Bio:</strong> {artist.Bio}</p>
       <p><strong>Portfolio:</strong> <a href={artist.PortfolioURL.startsWith('http') ? artist.PortfolioURL : `http://${artist.PortfolioURL}`} target="_blank" rel="noreferrer">{artist.PortfolioURL}</a></p>
