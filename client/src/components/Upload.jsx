@@ -21,24 +21,26 @@ const Upload = () => {
             location.reload()
         }
         else if(loggedinfo.UserType == 'artist'){
-            axios.post('http://localhost:8000/api/upload/artist',formData )
+            axios.post('http://localhost:8000/api/upload/artist', formData, {
+                timeout: 5000 
+              }) 
             .then( res => {})
             .catch(er => console.log(er))
             location.reload()
         }
-        else{
-            axios.post('http://localhost:8000/api/upload/artwork',formData )
-            .then( res => {})
-            .catch(er => console.log(er))
-            location.reload()
-        }
+      
         
     }
     return (
-        <div>
-        <input type="file" onChange={(e) => setFile(e.target.files[0])}/>
-        <button type="button" onClick={upload}>Upload</button>
-        </div>
+        <div className="upload-container">
+      <div className="form-group">
+        <input type="file" id="file" onChange={(e) => setFile(e.target.files[0])} />
+      </div>
+
+      <button type="button" onClick={upload}>
+        Upload
+      </button>
+    </div>
     )
 };
 

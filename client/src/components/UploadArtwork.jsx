@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import './UploadArtwork.css';  
+import CategoryDropdown from './CategoryDropdown';
+import './UploadArtwork.css';
 
 const UploadArtwork = () => {
-  const { artistID } = useParams();  
+  const { artistID } = useParams();
   const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [basePrice, setBasePrice] = useState('');
   const [category, setCategory] = useState('');
-  const [status, setStatus] = useState('Pending');  
+  const [status] = useState('Pending');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,13 +23,14 @@ const UploadArtwork = () => {
       description,
       basePrice,
       category,
-      status,  
+      status,
     };
 
     try {
-      await axios.post(`http://localhost:8000/api/artworks/upload`, artworkData);
+      const response = await axios.post('http://localhost:8000/api/artworks/upload', artworkData);
+      const { artworkID } = response.data; 
       alert('Artwork uploaded successfully!');
-      navigate(`/artists/user/${artistID}`);  
+      navigate(`/artists/${artistID}/upload-artwork/${artworkID}`);
     } catch (error) {
       console.error('Error uploading artwork:', error);
     }
@@ -45,18 +47,20 @@ const UploadArtwork = () => {
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            placeholder="Enter artwork title"
             required
           />
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="description">Description</label>
           <textarea
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            placeholder="Enter artwork description"
             required
-          />
+          ></textarea>
         </div>
 
         <div className="form-group">
@@ -66,32 +70,25 @@ const UploadArtwork = () => {
             id="basePrice"
             value={basePrice}
             onChange={(e) => setBasePrice(e.target.value)}
+            placeholder="Enter base price"
             required
           />
         </div>
 
         <div className="form-group">
-          <label htmlFor="category">Category</label>
-          <input
-            type="text"
-            id="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required
+          <CategoryDropdown
+            onChange={(selectedCategory) => setCategory(selectedCategory)}
           />
         </div>
 
         <div className="form-group">
           <label htmlFor="status">Approval Status</label>
-          <input
-            type="text"
-            id="status"
-            value={status}
-            disabled  
-          />
+          <input type="text" id="status" value={status} readOnly />
         </div>
 
-        <button type="submit" className="submit-btn">Submit Artwork</button>
+        <button type="submit" className="submit-btn">
+          Submit Artwork
+        </button>
       </form>
     </div>
   );

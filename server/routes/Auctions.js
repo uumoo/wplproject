@@ -244,5 +244,39 @@ router.get('/:auctionId', (req, res) => {
   });
 
 
-
+  router.post('/create', (req, res) => {
+    const { artworkID, startTime, endTime, startingBid, auctionStatus } = req.body;
+  
+    if (!artworkID || !startTime || !endTime || !startingBid) {
+      return res.status(400).send('All fields are required');
+    }
+  
+    const query = `
+      INSERT INTO auction (ArtworkID, StartTime, EndTime, StartingBid, AuctionStatus)
+      VALUES (?, ?, ?, ?, ?)
+    `;
+  
+    db.query(query, [artworkID, startTime, endTime, startingBid, auctionStatus], (err, result) => {
+      if (err) {
+        console.error('Error creating auction:', err);
+        return res.status(500).send('Failed to create auction');
+      }
+  
+      const updateArtworkQuery = `
+        UPDATE artwork 
+        SET ApprovalStatus = 'approved' 
+        WHERE ArtworkID = ?
+      `;
+  
+      db.query(updateArtworkQuery, [artworkID], (err, result) => {
+        if (err) {
+          console.error('Error updating artwork status:', err);
+          return res.status(500).send('Failed to update artwork status');
+        }
+  
+        res.status(201).send('Auction created and artwork approved successfully');
+      });
+    });
+  });
+  
 module.exports = router;

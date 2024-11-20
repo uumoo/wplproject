@@ -6,7 +6,10 @@ const fs = require('fs');
 const path = require('path');
 
 const storage = multer.memoryStorage();
-const buyerUpload = multer({ storage });
+const buyerUpload = multer({
+  storage,
+  limits: { fileSize: 100 * 1024 * 1024 } 
+});
 
 router.post('/buyer', buyerUpload.single('file'), (req, res) => {
   const { ID } = req.body;

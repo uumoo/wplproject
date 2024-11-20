@@ -1,4 +1,8 @@
 import React from "react";
+import AdminSignIn from './components/AdminSignIn';
+import VerifyArtworks from './components/VerifyArtworks';
+import VerifyArtworkDetails from './components/VerifyArtworkDetails';
+import AdminControlPanel from './components/AdminControlPanel';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import SignIn from "./components/SignIn";
@@ -13,6 +17,8 @@ import UserBuyer from './components/UserBuyer';
 import UserArtistPublic from './components/UserArtistPublic';  
 import UserBuyerPublic from './components/UserBuyerPublic';
 import UploadArtwork from './components/UploadArtwork';
+
+import UploadArtworkFinal from './components/UploadArtworksFinal';
 import ArtistArtworks from './components/ArtistArtworks';
 import AuctionBidding from './components/AuctionBidding';
 import Upload from './components/Upload';
@@ -28,6 +34,7 @@ import { AuthProvider } from './components/AuthContext';
 import './index.css';
 import ViewAuctionDetails from "./components/ViewAuctionDetails";
 import Auctions from "./components/Auctions";
+import CategoryDropdown from "./components/CategoryDropdown";
 
 
 
@@ -59,7 +66,10 @@ function App() {
            /* <CustomerReviews /> */}
           </main>
         } />
-        
+        <Route path="/admin" element={<AdminSignIn />} />
+        <Route path="/admin/controlpanel" element={<AdminControlPanel />} />
+        <Route path="/admin/verify/artwork" element={<VerifyArtworks />} />
+        <Route path="/admin/verify/artwork/:artworkID" element={<VerifyArtworkDetails />} />
         <Route path="/signin" element={<SignIn/>} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/rare-things" element={<RareThingsPage />} />
@@ -75,9 +85,11 @@ function App() {
         <Route path="/reviews" element={<ReviewsPage />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/auction/:id" element={<ViewAuctionDetails />} /> 
-        <Route path="/artists/:artistID/upload-artwork" element={<UploadArtwork />} />
+        <Route path="/artists/:artistID/upload-artwork" element={<UploadArtwork />} /> 
+        <Route path="/artists/:artistID/upload-artwork/:artworkID" element={<UploadArtworkFinal />} />
         <Route path="/user/artists/:artistID/artworks" element={<ArtistArtworks />} />
         <Route path="/auction-bidding/:id" element={<AuctionBidding />} />
+        <Route path="/catagories" element={<CategoryDropdown />} />
       </Routes>
 
       <Footer />
