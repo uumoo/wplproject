@@ -2,7 +2,6 @@ const express = require('express');
 const db = require('../db_connection/Connect_db');
 const router = express.Router();
 
-// Verify artist
 router.post('/verify/artist/:id', (req, res) => {
   const artistID = req.params.id;
   const query = 'UPDATE artists SET Verified = 1 WHERE artistID = ?';
@@ -14,7 +13,6 @@ router.post('/verify/artist/:id', (req, res) => {
   });
 });
 
-// Verify Buyer
 router.post('/verify/buyer/:id', (req, res) => {
   const buyerID = req.params.id;
   const query = 'UPDATE buyers SET Verified = 1 WHERE BuyerID = ?';
@@ -26,7 +24,7 @@ router.post('/verify/buyer/:id', (req, res) => {
   });
 });
 
-// Verify Artwork
+
 router.post('/verify/artwork/:id', (req, res) => {
   const artworkID = req.params.id;
   const query = 'UPDATE artworks SET ApprovalStatus = "Approved" WHERE ArtworkID = ?';

@@ -7,11 +7,12 @@ import './AuctionBidding.css';
 const AuctionBidding = () => {
   const { loggedinfo} = useAuth();
   const { id } = useParams();
-  const [auction, setAuction] = useState(null);
+  const [auctionData, setAuction] = useState(null);
   const [highestBid, setHighestBid] = useState(0); 
   const [newBid, setNewBid] = useState(); 
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAuctionDetails = async () => {
@@ -34,19 +35,30 @@ const AuctionBidding = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); 
     if (newBid > highestBid) {
-      location.reload()
+      //location.reload()
       const BuyerID = loggedinfo.ID
       const BidAmount = newBid
       const data = {BuyerID,BidAmount}
       try{
-      await axios.post(`http://localhost:8000/api/auctions/${id}/bid`,{BuyerID,BidAmount})      
-      location.reload()
+      const currentTime = new Date();
+      if (new Date(auctionData.StartTime) > currentTime) {
+        alert("Auction is not online!!")
+        navigate('/auctions')
+      } else if (new Date(auctionData.EndTime) < currentTime) {
+        alert("Auction is Closed!!")
+        navigate('/auctions')
+      } else {
+        setHighestBid(newBid);
+        alert(`Your bid of $${newBid} was successfully submitted!`);
+        location.reload()
+        await axios.post(`http://localhost:8000/api/auctions/${id}/bid`,{BuyerID,BidAmount})      
+          
+      }
+    
     } catch (err) {
       setError('Error submitting bid'); 
       setLoading(false);
     }
-      setHighestBid(newBid); 
-      alert(`Your bid of $${newBid} was successfully submitted!`);
     } else {
       alert('Your bid must be higher than the current highest bid.');
     }

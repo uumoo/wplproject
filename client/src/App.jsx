@@ -14,10 +14,11 @@ import CustomerReviews from "./components/CustomerReviews";
 import ExploreOptions from "./components/ExploreOptions";
 import UserArtist from './components/UserArtist';  
 import UserBuyer from './components/UserBuyer'; 
+import BuyerCart from './components/BuyerCart'; 
 import UserArtistPublic from './components/UserArtistPublic';  
 import UserBuyerPublic from './components/UserBuyerPublic';
 import UploadArtwork from './components/UploadArtwork';
-
+import BuyerAuction from './components/BuyerAuction'; 
 import UploadArtworkFinal from './components/UploadArtworksFinal';
 import ArtistArtworks from './components/ArtistArtworks';
 import AuctionBidding from './components/AuctionBidding';
@@ -27,6 +28,7 @@ import UserArtist from "./components/UserArtist"
 import UserBuyer from "./components/UserBuyer";
 import UserArtistPublic from "./components/UserArtistPublic";
 import UserBuyerPublic from "./components/UserBuyerPublic";
+/cart/${buyer.BuyerID}
 */
 import HeroSection from "./components/HeroSection"; 
 import Footer from "./components/Footer";
@@ -90,6 +92,8 @@ function App() {
         <Route path="/user/artists/:artistID/artworks" element={<ArtistArtworks />} />
         <Route path="/auction-bidding/:id" element={<AuctionBidding />} />
         <Route path="/catagories" element={<CategoryDropdown />} />
+        <Route path="/cart/:buyerID"element={<BuyerCart />}/>
+        <Route path="/your-auctions/:buyerID"element={<BuyerAuction />}/>
       </Routes>
 
       <Footer />

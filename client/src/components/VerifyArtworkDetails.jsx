@@ -27,12 +27,23 @@ const VerifyArtworkDetails = () => {
   }, [artworkID]);
 
   const handleAuctionCreate = async () => {
+    const currentTime = new Date();
+
+    let auctionStatus;
+    if (new Date(startTime) > currentTime) {
+      auctionStatus = 'pending';
+    } else if (new Date(endTime) < currentTime) {
+      auctionStatus = 'closed';
+    } else {
+      auctionStatus = 'active';
+    }
+
     const auctionData = {
       artworkID,
       startTime,
       endTime,
       startingBid, 
-      auctionStatus: 'pending'
+      auctionStatus
     };
     console.log(auctionData)
     try {

@@ -52,6 +52,42 @@ router.post('/signup', (req, res) => {
 });
 
 
+router.get('/cart/:buyerID', async (req, res) => {
+    const { buyerID } = req.params;
+    const q = `
+    SELECT a.AuctionID, b.Title, a.HighestBid,b.ArtworkID
+    FROM auction a
+    JOIN artwork b ON a.ArtworkID = b.ArtworkID
+    WHERE a.WinnerID = ? AND a.AuctionStatus = 'closed'
+  `
+    db.query(q,buyerID,(err, result) => {
+        if (err) return res.status(500).json(err);
+        res.json(result);
+    });
+});
+router.get('/auction/:buyerID', async (req, res) => {
+    const { buyerID } = req.params;
+    const q =  `SELECT 
+    auction.AuctionID, 
+    artwork.Title,
+    artwork.ArtworkID, 
+    MAX(bid.BidAmount) AS MaxBid
+FROM 
+    auction
+JOIN 
+    artwork ON auction.ArtworkID = artwork.ArtworkID
+JOIN 
+    bid ON auction.AuctionID = bid.AuctionID
+WHERE 
+    bid.BuyerID = ? AND auction.AuctionStatus = 'active'
+GROUP BY 
+    auction.AuctionID, artwork.Title;
+`;
+    db.query(q,buyerID,(err, result) => {
+        if (err) return res.status(500).json(err);
+        res.json(result);
+    });
+});
 
 
 

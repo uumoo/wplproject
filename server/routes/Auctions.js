@@ -183,12 +183,12 @@ router.get('/:auctionId', (req, res) => {
             })   
             
           }
-          const StartingBidQuery = 'SELECT StartingBid AS sb FROM auction where AuctionID = ?';
-          db.query(StartingBidQuery,[auctionId],(err,result) =>{
+          const HighestBidQuery = 'SELECT HighestBid AS sb FROM auction where AuctionID = ?';
+          db.query(HighestBidQuery,[auctionId],(err,result) =>{
             if (err) return res.status(500).json(err);
-            const StartingBid = result[0].sb;
+            const HighestBid = result[0].sb;
             
-            if(BidAmount>StartingBid){
+            if(BidAmount>HighestBid){
                 const maxBidQuery = 'SELECT MAX(BidAmount) AS maxBidAmount FROM bid WHERE AuctionID = ?';
             
                 db.query(maxBidQuery, [auctionId], (err, result) => {
@@ -216,8 +216,8 @@ router.get('/:auctionId', (req, res) => {
                 });
             }
             else{
-              console.log('lower than starting bid.');
-              res.status(201).json({ message: 'lower than starting bid.' });
+              console.log('lower than Highest bid.');
+              res.status(201).json({ message: 'lower than Highest bid.' });
             }                   
 
           }); 
@@ -231,7 +231,7 @@ router.get('/:auctionId', (req, res) => {
   router.post('/:artworkID/new', (req, res) => {
     const { artworkID } = req.params;
     AuctionStatus = 'active';
-   // const {  StartTime, EndTime,StartingBid } = req.body;
+   // const {  StartTime, EndTime,HighestBid } = req.body;
      StartTime = '2024-10-15 04:59:24';
      EndTime = '2024-10-15 05:39:24';
      StartingBid = 222;
@@ -246,17 +246,17 @@ router.get('/:auctionId', (req, res) => {
 
   router.post('/create', (req, res) => {
     const { artworkID, startTime, endTime, startingBid, auctionStatus } = req.body;
-  
+    const highestBid = startingBid;
     if (!artworkID || !startTime || !endTime || !startingBid) {
       return res.status(400).send('All fields are required');
     }
   
     const query = `
-      INSERT INTO auction (ArtworkID, StartTime, EndTime, StartingBid, AuctionStatus)
-      VALUES (?, ?, ?, ?, ?)
+      INSERT INTO auction (ArtworkID, StartTime, EndTime, StartingBid, AuctionStatus,HighestBid)
+      VALUES (?, ?, ?, ?, ?,?)
     `;
   
-    db.query(query, [artworkID, startTime, endTime, startingBid, auctionStatus], (err, result) => {
+    db.query(query, [artworkID, startTime, endTime, startingBid, auctionStatus,highestBid], (err, result) => {
       if (err) {
         console.error('Error creating auction:', err);
         return res.status(500).send('Failed to create auction');
